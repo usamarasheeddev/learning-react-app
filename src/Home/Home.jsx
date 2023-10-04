@@ -1,7 +1,10 @@
 import React from 'react'
-import './App.css'
+import '../App.css'
 
-export default function Home() {
+// export default function Home(Props) {
+// const {data,setData}=Props
+export default function Home({data,setData}) {
+
 
   const [creds, setCreds] = React.useState('')
 
@@ -14,13 +17,17 @@ export default function Home() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(creds)
+console.log(data)
+    // console.log(creds)
+    setData(creds)
   }
+
 
 
 
   return (
     <div >
+    <h2>home</h2>
       <form onSubmit={(e) => handleSubmit(e)}>
 
         <input placeholder='name' type='text' name='name' onChange={(e) => handleChange(e)} />

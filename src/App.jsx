@@ -1,31 +1,19 @@
 import React from 'react'
-import './App.css'
+import Home from './Home/Home'
+
 export default function App() {
 
-
-  const [value, setValue] = React.useState(0)
-
+  const [data, setData] = React.useState('empty')
 
   React.useEffect(() => {
-    console.log('sideeffect')
-
-
-  }, [value])
-
-
-  // React.useLayoutEffect(() => {
-  //   console.log('helo')
-  // }, [])
+    console.log(data)
+  }, [data])
 
   return (
     <div>
-      <button onClick={() => setValue(value - 1)}  >-</button>
-      <div>{value}</div>
-      <button onClick={() => setValue(value + 1)} >+</button>
 
-      <div style={{ width: '3rem', height: '4rem', backgroundColor: 'red' }}>
-
-      </div>
+      <h2>app</h2>
+      <Home data={data} setData={setData}  />
     </div>
   )
 }
