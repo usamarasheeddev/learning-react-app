@@ -1,7 +1,9 @@
 import React from 'react'
 import TodoList from './TodoList'
-
-export default function Todos({ todos, setTodos }) {
+import { useContext } from 'react'
+import { TodoContext } from '../Context/todoContext'
+export default function Todos() {
+    const {todos}=useContext(TodoContext)
     // console.log(todos)
     return (
         <div>
@@ -15,11 +17,7 @@ export default function Todos({ todos, setTodos }) {
                 {
                     todos.map((currentObject) => {
 
-
-{/* by using console.log we can bring the output on page and also in the console */}
-{/* console.log(currentObject) */}
-                        {/* return <p key={currentObject.todo} >{currentObject.todo}</p> */}
-                        return <TodoList key={currentObject.todo}   currentObject={currentObject} />
+                        return <TodoList key={currentObject.todo}   currentObject={currentObject}  />
                     })
                 }
             </div>
