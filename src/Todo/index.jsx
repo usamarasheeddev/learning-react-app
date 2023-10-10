@@ -3,7 +3,7 @@ import React from 'react'
 import Todos from './Todos'
 import { useContext } from 'react'
 import { TodoContext } from '../Context/todoContext'
-
+import toast from 'react-hot-toast'
 // install autoimport extension to import the file automatically
 export default function Index() {
 //single todo to be added
@@ -35,6 +35,7 @@ const{todos, setTodos}=useContext(TodoContext)
 
 // tis is used to empty the state of settodo:each time an input is entered and pushed into the todo list the input field becomes empty
     setTodo('')
+    toast.success('Todo added')
 
 
   }
