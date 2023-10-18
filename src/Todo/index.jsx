@@ -8,8 +8,8 @@ import toast from 'react-hot-toast'
 export default function Index() {
   //single todo to be added
   //create a state of todo for a single todo 
-  const [todo, setTodo] = React.useState('')
-  const { todos, setTodos } = useContext(TodoContext)
+  const { todos, setTodos,currentTodo } = useContext(TodoContext)
+  const [todo, setTodo] = React.useState(currentTodo&&'')
 
   //group of todo
   //array of added todos:here array is used coz we have a list of todos so we use array
@@ -36,7 +36,7 @@ export default function Index() {
     // localStorage.setItem('todos', [...todos, { todo: todo }])
 
     // console.log([...todos, { todo: todo }])
-    let stringTodos=JSON.stringify([...todos, { todo: todo }])
+    let stringTodos = JSON.stringify([...todos, { todo: todo }])
     // console.log(stringTodos)
     localStorage.setItem('todos', stringTodos)
 
@@ -49,24 +49,26 @@ export default function Index() {
 
 
 
+  React.useEffect(() => {
+
+    let value = localStorage.getItem('todos') && JSON.parse(localStorage.getItem('todos'))
+    setTodos(value ? value : [])
+
+
+  }, [])
+
+
+
 React.useEffect(()=>{
-
-let value=localStorage.getItem('todos')&&JSON.parse(localStorage.getItem('todos'))
-setTodos(value?value:[])
-
-
-},[])
+setTodo(currentTodo)
+},[currentTodo])
 
 
 
-
-
-
-
-const clearLocalStorage=()=>{
-  localStorage.clear()
-  setTodos([])
-}
+  const clearLocalStorage = () => {
+    localStorage.clear()
+    setTodos([])
+  }
 
   return (
     // we give styling to the div in curly brackets and the styling will only apply on the div and not the whole page
@@ -87,7 +89,7 @@ const clearLocalStorage=()=>{
       <Todos />
 
 
-      <button onClick={()=>clearLocalStorage()}>Clear todo</button>
+      {/* <button onClick={()=>clearLocalStorage()}>Clear todo</button> */}
     </div>
   )
 }

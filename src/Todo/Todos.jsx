@@ -15,9 +15,9 @@ export default function Todos() {
                     {/* we can give any name to the map function:here currentobject is the name of the map function */}
 
                 {
-                    todos.map((currentObject) => {
+                    todos.map((currentObject,i) => {
 
-                        return <TodoList key={currentObject.todo}   currentObject={currentObject}  />
+                        return <TodoList key={currentObject.todo}  index={i}  currentObject={currentObject}  />
                     })
                 }
             </div>
