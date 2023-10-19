@@ -4,12 +4,13 @@ import Todos from './Todos'
 import { useContext } from 'react'
 import { TodoContext } from '../Context/todoContext'
 import toast from 'react-hot-toast'
+import { uid } from 'uid'
 // install autoimport extension to import the file automatically
 export default function Index() {
   //single todo to be added
   //create a state of todo for a single todo 
-  const { todos, setTodos,currentTodo } = useContext(TodoContext)
-  const [todo, setTodo] = React.useState(currentTodo&&'')
+  const { todos, setTodos, currentTodo, EditTodo } = useContext(TodoContext)
+  const [todo, setTodo] = React.useState(currentTodo?.todo && '')
 
   //group of todo
   //array of added todos:here array is used coz we have a list of todos so we use array
@@ -31,12 +32,12 @@ export default function Index() {
     // settodos displays the input on the page 
     // in the settodos we firstly jse spread operator coz it is an array , we open the array and add comma, then we create an object of todo:todo
     // the todo in darkblue is a variable
-    setTodos([...todos, { todo: todo }])
+    setTodos([...todos, { todo: todo, id: uid() }])
 
     // localStorage.setItem('todos', [...todos, { todo: todo }])
 
     // console.log([...todos, { todo: todo }])
-    let stringTodos = JSON.stringify([...todos, { todo: todo }])
+    let stringTodos = JSON.stringify([...todos, { todo: todo, id: uid() }])
     // console.log(stringTodos)
     localStorage.setItem('todos', stringTodos)
 
@@ -59,9 +60,9 @@ export default function Index() {
 
 
 
-React.useEffect(()=>{
-setTodo(currentTodo)
-},[currentTodo])
+  React.useEffect(() => {
+    setTodo(currentTodo?.todo)
+  }, [currentTodo])
 
 
 
@@ -82,7 +83,14 @@ setTodo(currentTodo)
         <input placeholder='add todo' value={todo} type='text' onChange={(e) => setTodo(e.target.value)} />
 
         {/* here we use addtodo event on button to add the input into the interface */}
-        <button onClick={() => addTodo()}>Add Todo</button>
+
+
+
+        {currentTodo ? <button onClick={() => EditTodo(todo)}>Edit Todo</button> :
+          <button onClick={() => addTodo()}>Add Todo</button>
+
+        }
+
 
       </div>
       {/* these are props that we use to get and set the todolist and we will use props in the todo file */}

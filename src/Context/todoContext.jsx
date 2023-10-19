@@ -10,32 +10,72 @@ export default function TodoContextProvider({ children }) {
     const [currentTodo, setcurrentTodo] = React.useState(null)
 
 
-    const EditTodo = (index, param) => {
-        console.log(param)
-        
-        setcurrentTodo(param.todo)
+    const SetTodoValue = (param) => {
+        setcurrentTodo(param)
     }
 
 
 
-    const DeleteTodo = (params) => {
-        // console.log(todos[params])
-        todos.map((todo, i) => {
-            if (i === params) {
-                // console.log(todo)
-                // console.log(todos.splice(params, 1)) 
-                const newArray = [...todos.slice(0, params), ...todos.slice(params + 1)];
-                setTodos(newArray)
-                localStorage.setItem("todos", JSON.stringify(newArray))
+    const EditTodo = (newTodo) => {
+      
 
+        setTodos(
+
+
+        todos.map(item => {
+            if (item.id === currentTodo.id) {
+                return { ...item, todo: newTodo }
             }
+
+            return item
         })
+
+
+        
+        )
+
+
+
+localStorage.setItem('todos',JSON.stringify(
+    todos.map(item => {
+        if (item.id === currentTodo.id) {
+            return { ...item, todo: newTodo }
+        }
+
+        return item
+    })
+    ))
+
+    }
+
+
+
+
+    const DeleteTodo = (params) => {
+        console.log(params)
+        // todos.map((todo, i) => {
+        //     if (i === params) {
+        //         // console.log(todo)
+        //         // console.log(todos.splice(params, 1)) 
+        //         const newArray = [...todos.slice(0, params), ...todos.slice(params + 1)];
+        //         setTodos(newArray)
+        //         localStorage.setItem("todos", JSON.stringify(newArray))
+
+        //     }
+        // })
+
+
+        setTodos(todos.filter(item => item.id != params.id))
+        localStorage.setItem("todos", JSON.stringify(todos.filter(item => item.id != params.id)))
+
+
+
     }
 
 
     return (
 
-        < TodoContext.Provider value={{ todos, setTodos, EditTodo, DeleteTodo, currentTodo, setcurrentTodo }}>
+        < TodoContext.Provider value={{ todos, setTodos, EditTodo, DeleteTodo, currentTodo, setcurrentTodo, SetTodoValue }}>
 
             {children
                 // root file

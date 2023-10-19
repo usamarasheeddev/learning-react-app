@@ -6,7 +6,7 @@ import { TodoContext } from '../Context/todoContext'
 import toast from 'react-hot-toast'
 // here we use todolist becuase we want to get the data into this file so we use props within the home component
 export default function TodoList({ currentObject, index }) {
-  const {DeleteTodo,EditTodo}=useContext(TodoContext)
+  const {DeleteTodo,EditTodo,SetTodoValue}=useContext(TodoContext)
   return (
     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '12rem' }}>
 
@@ -19,13 +19,16 @@ export default function TodoList({ currentObject, index }) {
       </p>
       <span>
 
-        <FiEdit onClick={()=>EditTodo(index,currentObject)}  
+        <FiEdit onClick={()=>{
+          SetTodoValue(currentObject)
+          }
+          }  
         
         
         style={{color:'blue',fontSize:'1.2rem' }} />
         <MdDelete   onClick={()=>
         {
-        DeleteTodo(index)
+        DeleteTodo(currentObject)
         toast.success('Todo Removed')
         }
         } style={{color:'red',fontSize:'1.3rem' }} />
